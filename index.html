@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>88shard88 - About Me</title>
+
     <style>
         @font-face {
             font-family: 'VCR';
@@ -19,27 +20,78 @@
             letter-spacing: 1px;
             position: relative;
             overflow-x: hidden;
+
+            /* Light curvature */
             transform: scale(1.02);
             transform-origin: center;
             perspective: 1200px;
         }
 
+        /* ------------------------------------ */
+        /*   CHROMATIC ABERRATION (RGB SPLIT)   */
+        /* ------------------------------------ */
+
+        /* Blue ghost offset */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 9995;
+            pointer-events: none;
+            mix-blend-mode: screen;
+
+            filter: blur(1px);
+            transform: translateX(-2px);
+
+            background: rgba(0,150,255,0.12);
+        }
+
+        /* Red ghost offset */
         body::after {
             content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 9994;
+            pointer-events: none;
+            mix-blend-mode: screen;
+
+            filter: blur(1px);
+            transform: translateX(2px);
+
+            background: rgba(255,60,60,0.12);
+        }
+
+        /* ------------------------------------ */
+        /*         SCREEN CURVE VIGNETTE        */
+        /* ------------------------------------ */
+        .curve-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             pointer-events: none;
-            z-index: 9997;
-            background: radial-gradient(circle at center, rgba(0,0,0,0) 60%, rgba(0,0,0,0.25) 90%);
-            transform: translateZ(0) scale(1.03) perspective(900px) rotateX(1.8deg) rotateY(-1.8deg);
+            z-index: 9993;
+
+            background: radial-gradient(
+                circle at center,
+                rgba(0,0,0,0) 60%,
+                rgba(0,0,0,0.25) 90%
+            );
+
+            transform:
+                translateZ(0)
+                scale(1.03)
+                perspective(900px)
+                rotateX(1.8deg)
+                rotateY(-1.8deg);
         }
 
         .content {
             max-width: 1200px;
             margin-left: 40px;
+            position: relative;
+            z-index: 1; /* Keep text above RGB ghosts */
         }
 
         img.pfp {
@@ -57,7 +109,7 @@
         .block-text {
             max-width: 900px;
             line-height: 1.6;
-            white-space: normal; /* FIXED HERE */
+            white-space: normal; /* FIX */
         }
 
         .music-button {
@@ -85,99 +137,10 @@
             font-size: 16px;
         }
 
+        /* ------------------------------------ */
+        /*           CRT SCANLINES              */
+        /* ------------------------------------ */
         .crt-overlay {
             pointer-events: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 9999;
-            background: repeating-linear-gradient(
-                to bottom,
-                rgba(0, 0, 0, 0.15) 0px,
-                rgba(0, 0, 0, 0.15) 2px,
-                rgba(0, 0, 0, 0.05) 2px,
-                rgba(0, 0, 0, 0.05) 4px
-            );
-            animation: flicker 0.15s infinite alternate;
-        }
-
-        @keyframes flicker {
-            0% { opacity: 0.75; }
-            100% { opacity: 0.9; }
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.08), rgba(0,0,0,0.8));
-            z-index: 9998;
-            mix-blend-mode: overlay;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="content">
-
-    <div class="line">
-        &gt; hello, I'm 88shard88.
-        <img class="pfp" src="clov5.jpg" alt="profile picture">
-    </div>
-
-    <div class="line">
-        &gt; I'm a (mostly) solo game developer and creator of various forms of art.
-    </div>
-
-    <div class="line">
-        &gt; I do a lot of character design and digital art/music, and coding.
-    </div>
-
-    <div class="block-text line">
-        ] If you're visiting this page though, you likely know me for my work on FORGOTTEN.
-        I work on other things though, such as ITERATION2 (another game), and FOR GLORY,
-        where I do a lot of character and music design. If you want me to do a character
-        design or track for you, just ask. [
-    </div>
-
-    <div class="line">
-        anyways, here's some music! this one's for a game over track:
-    </div>
-
-    <div class="music-button" onclick="toggleMusic()">
-        click for music
-    </div>
-
-    <audio id="music" src="music.mp3"></audio>
-
-    <footer>
-        pfp is of Cloth from F:LSD; ihy
-    </footer>
-</div>
-
-<div class="crt-overlay"></div>
-
-<script>
-    const audio = document.getElementById('music');
-    let playing = false;
-
-    function toggleMusic() {
-        if (!playing) {
-            audio.play();
-            playing = true;
-        } else {
-            audio.pause();
-            playing = false;
-        }
-    }
-</script>
-
-</body>
-</html>
+            inset: 0;
