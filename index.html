@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>88shard88 - About Me</title>
+    <style>
+        @font-face {
+            font-family: 'VCR';
+            src: url('vcr.ttf') format('truetype');
+        }
+
+        body {
+            margin: 0;
+            padding: 40px;
+            background-color: black;
+            color: white;
+            font-family: 'VCR', monospace;
+            font-size: 20px;
+            letter-spacing: 1px;
+            position: relative;
+            overflow-x: hidden;
+
+            /* ----------------------- */
+            /* CURVED SCREEN WARP      */
+            /* ----------------------- */
+
+            /* Subtle curve scaling  */
+            transform: scale(1.02);
+            transform-origin: center;
+
+            /* Distortion using perspective + rotate3d */
+            perspective: 1200px;
+        }
+
+        /* Curved screen warping overlay */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9997;
+
+            /* Vignette to deepen the curve illusion */
+            background: radial-gradient(
+                circle at center,
+                rgba(0,0,0,0) 60%,
+                rgba(0,0,0,0.25) 90%
+            );
+
+            /* Actual curve effect */
+            transform:
+                translateZ(0)
+                scale(1.03)
+                perspective(900px)
+                rotateX(1.8deg)
+                rotateY(-1.8deg);
+        }
+
+        .content {
+            max-width: 1200px;
+            margin-left: 40px;
+        }
+
+        img.pfp {
+            width: 260px;
+            border: 2px solid white;
+            margin-left: 420px;
+            margin-top: -40px;
+        }
+
+        .line {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .block-text {
+            max-width: 900px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .music-button {
+            width: 350px;
+            height: 120px;
+            border: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            cursor: pointer;
+            margin-top: 40px;
+            margin-left: 100px;
+            transition: background-color 0.2s;
+        }
+
+        .music-button:hover {
+            background-color: #222;
+        }
+
+        footer {
+            color: white;
+            margin-top: 120px;
+            text-align: right;
+            font-size: 16px;
+        }
+
+        /* ----------------------- */
+        /* CRT SCANLINE OVERLAY   */
+        /* ----------------------- */
+
+        .crt-overlay {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    rgba(0, 0, 0, 0.15) 0px,
+                    rgba(0, 0, 0, 0.15) 2px,
+                    rgba(0, 0, 0, 0.05) 2px,
+                    rgba(0, 0, 0, 0.05) 4px
+                );
+            animation: flicker 0.15s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.75; }
+            100% { opacity: 0.9; }
+        }
+
+        /* Subtle screen glow */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.08), rgba(0,0,0,0.8));
+            z-index: 9998;
+            mix-blend-mode: overlay;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="content">
+
+    <div class="line">
+        &gt; hello, I'm 88shard88.
+        <img class="pfp" src="clov5.jpg" alt="profile picture">
+    </div>
+
+    <div class="line">
+        &gt; I'm a (mostly) solo game developer and creator of various forms of art.
+    </div>
+
+    <div class="line">
+        &gt; I do a lot of character design and digital art/music, and coding.
+    </div>
+
+    <div class="block-text line">
+        ] If you're visiting this page though, you likely know me for my work on
+        FORGOTTEN. I work on other things though, such as ITERATION2 (another
+        game), and FOR GLORY, where I do a lot of character and music design. If
+        you want me to do a character design or track for you, just ask. [
+    </div>
+
+    <div class="line">
+        anyways, here's some music! this one's for a game over track:
+    </div>
+
+    <div class="music-button" onclick="toggleMusic()">
+        click for music
+    </div>
+
+    <audio id="music" src="music.mp3"></audio>
+
+    <footer>
+        pfp is of Cloth from F:LSD; ihy
+    </footer>
+</div>
+
+<div class="crt-overlay"></div>
+
+<script>
+    const audio = document.getElementById('music');
+    let playing = false;
+
+    function toggleMusic() {
+        if (!playing) {
+            audio.play();
+            playing = true;
+        } else {
+            audio.pause();
+            playing = false;
+        }
+    }
+</script>
+
+</body>
+</html>
