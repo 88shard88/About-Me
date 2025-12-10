@@ -31,7 +31,7 @@
         /*   CHROMATIC ABERRATION (RGB SPLIT)   */
         /* ------------------------------------ */
 
-        /* Blue ghost offset */
+        /* Blue ghost */
         body::before {
             content: "";
             position: fixed;
@@ -42,11 +42,10 @@
 
             filter: blur(1px);
             transform: translateX(-2px);
-
             background: rgba(0,150,255,0.12);
         }
 
-        /* Red ghost offset */
+        /* Red ghost */
         body::after {
             content: "";
             position: fixed;
@@ -57,7 +56,6 @@
 
             filter: blur(1px);
             transform: translateX(2px);
-
             background: rgba(255,60,60,0.12);
         }
 
@@ -109,7 +107,7 @@
         .block-text {
             max-width: 900px;
             line-height: 1.6;
-            white-space: normal; /* FIX */
+            white-space: normal;
         }
 
         .music-button {
@@ -138,9 +136,33 @@
         }
 
         /* ------------------------------------ */
-        /*           CRT SCANLINES              */
+        /*            CRT SCANLINES             */
         /* ------------------------------------ */
         .crt-overlay {
             pointer-events: none;
             position: fixed;
             inset: 0;
+            z-index: 9992;
+
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(255,255,255,0.04) 0px,
+                rgba(255,255,255,0.04) 1px,
+                rgba(0,0,0,0) 2px,
+                rgba(0,0,0,0) 4px
+            );
+        }
+    </style>
+</head>
+
+<body>
+    <div class="curve-overlay"></div>
+    <div class="crt-overlay"></div>
+
+    <div class="content">
+        <!-- Your content here -->
+        <h1>About Me</h1>
+    </div>
+
+</body>
+</html>
